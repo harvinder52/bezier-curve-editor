@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bezier </title>
+</head>
+<body>
+	<script type="text/javascript">
+		let rect = document.createElement("rect")
+		let canvas = document.createElement("canvas")
+		canvas.width = 300;
+		canvas.height = 300;
+		canvas.style.border = "2px solid red";
+
+		let  context = canvas.getContext("2d");
+  
+       context.lineWidth = 2;
+       context.strokeStyle = "black";
+       context.moveTo(300, 0);
+       //context.lineTo(0, 300)
+       context.bezierCurveTo(0, 0, 300, 30, 300, 30);
+       context.stroke();
+        
+
+		document.body.append(canvas)
+	</script>
+
+</body>
+</html>
