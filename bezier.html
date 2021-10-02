@@ -5,8 +5,37 @@
 </head>
 <body>
 	<script type="text/javascript">
-		let rect = document.createElement("rect")
+		let canvasDiv = document.createElement("div")
+		canvasDiv.style.position = "absolute"
+		canvasDiv.style.width = "300px"
+		canvasDiv.style.height = "300px"
+		canvasDiv.style.top = "30%"
+		canvasDiv.style.left =" 30%";
+
+		let spanX1= document.createElement("button")
+		spanX1.innerText = "(x1)"
+		spanX1.style.position = "absolute"
+		spanX1.style.color ="red";
+		spanX1.style.top = "30px"
+		let spanX2= document.createElement("button")
+		spanX2.innerText = "(x2)"
+		spanX2.style.position = "absolute"
+		spanX2.style.color ="blue";
+		let spany1= document.createElement("button")
+		spany1.innerText = "(y1)"
+		spany1.style.position = "absolute"
+		spany1.style.color ="green";
+		let spanY2= document.createElement("button")
+		spanY2.innerText = "(y2)"
+		spanY2.style.position = "absolute"
+		spanY2.style.color ="purple";
+		
+		dragElement(spanX1)
+		dragElement(spanX2)
+		dragElement(spany1)
+		dragElement(spanY2)
 		let canvas = document.createElement("canvas")
+		canvas.style.position = "absolute"
 		canvas.width = 300;
 		canvas.height = 300;
 		canvas.style.border = "2px solid red";
@@ -16,12 +45,90 @@
        context.lineWidth = 2;
        context.strokeStyle = "black";
        context.moveTo(300, 0);
-       //context.lineTo(0, 300)
-       context.bezierCurveTo(0, 0, 300, 30, 300, 30);
+       a =10;
+       context.bezierCurveTo(10, 0, 300, 30, 300, 30);
        context.stroke();
-        
+       canvasDiv.append(canvas) 
 
-		document.body.append(canvas)
+       
+      canvasDiv.appendChild(spanX1)
+      canvasDiv.appendChild(spanX2)
+      canvasDiv.appendChild(spany1)
+      canvasDiv.appendChild(spanY2)
+       
+      
+
+		document.body.append(canvasDiv)
+
+
+
+
+
+		//drags element
+
+		function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  
+   if (document.querySelector(".titleBar")) {
+    // if present, the header is where you move the DIV from:
+   (document.querySelector(".titleBar")).onmousedown = dragMouseDown;
+    console.log("titlebar")
+  } else {
+    // otherwise, move the DIV from anywhere inside the DIV:
+    elmnt.onmousedown = dragMouseDown;
+    console.log("elmnt")
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    if (elmnt.offsetTop - pos2>300){
+    	elmnt.style.top = "300px";
+    	 
+   	} 
+   	if(elmnt.offsetTop - pos2<0) {
+		elmnt.style.top = "0px"
+    } else{
+   	elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    }
+    
+    if (elmnt.offsetLeft - pos1 >300){
+    	elmnt.style.left = "300px"
+    }	 
+    
+    if (elmnt.offsetLeft - pos1<0) {
+    	elmnt.style.left = "0px"
+    }else{
+    	elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    	
+    }
+    
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+
+
 	</script>
 
 </body>
