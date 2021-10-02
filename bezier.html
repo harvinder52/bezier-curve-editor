@@ -17,6 +17,7 @@
 		spanX1.style.position = "absolute"
 		spanX1.style.color ="red";
 		spanX1.style.top = "30px"
+		spanX1.style.left = "30px"
 		let spanX2= document.createElement("button")
 		spanX2.innerText = "(x2)"
 		spanX2.style.position = "absolute"
@@ -45,9 +46,42 @@
        context.lineWidth = 2;
        context.strokeStyle = "black";
        context.moveTo(300, 0);
-       a =10;
        context.bezierCurveTo(10, 0, 300, 30, 300, 30);
        context.stroke();
+
+
+       
+       // context.beginPath(); 
+       // context.moveTo(0, 300);
+       // let a = parseInt(spanX1.style.top)
+       // let b = parseInt(spanX1.style.left)
+       // context.lineTo(a, b)
+       // context.strokeStyle = "blue"
+       // console.log(a, b)
+       
+   	   // context.stroke();
+
+
+       
+       console.log (parseInt(spanX1.style.top))
+
+       function x1Line(top, left){
+       	if (canvas.getContext) 
+       {
+       var context = canvas.getContext('2d');
+        
+       context.beginPath(); 
+       context.moveTo(parseInt(spanX2.style.left), parseInt(spanX2.style.top));
+       context.lineTo(left, top);
+       console.log(top, left)
+       context.strokeStyle = "green"
+   	   context.stroke();
+   		}
+       }
+
+      spanX1.addEventListener("onmousemove", ()=>{
+       x1Line(parseInt(spanX1.style.top), parseInt(spanX1.style.left))
+       })
        canvasDiv.append(canvas) 
 
        
@@ -98,31 +132,34 @@
     pos2 = pos4 - e.clientY;
     pos3 = e.clientX;
     pos4 = e.clientY;
-    if (elmnt.offsetTop - pos2>300){
-    	elmnt.style.top = "300px";
+    if (elmnt.offsetTop - pos2<=300 && elmnt.offsetTop - pos2>=0){
+    	elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+
     	 
    	} 
-   	if(elmnt.offsetTop - pos2<0) {
-		elmnt.style.top = "0px"
-    } else{
-   	elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    }
-    
-    if (elmnt.offsetLeft - pos1 >300){
-    	elmnt.style.left = "300px"
-    }	 
-    
-    if (elmnt.offsetLeft - pos1<0) {
-    	elmnt.style.left = "0px"
-    }else{
+   	
+    x1Line(parseInt(spanX1.style.top), parseInt(spanX1.style.left))
+
+
+    if (elmnt.offsetLeft - pos1 <=300 && elmnt.offsetLeft - pos1 >=0 ){
     	elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-    	
     }
+    // if (elmnt.offsetLeft - pos1 >300){
+    // 	elmnt.style.left = "300px"
+    // }	 
+    
+    // if (elmnt.offsetLeft - pos1<0) {
+    // 	elmnt.style.left = "0px"
+    // }else{
+    // 	elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    	
+    // }
     
   }
 
   function closeDragElement() {
     /* stop moving when mouse button is released:*/
+
     document.onmouseup = null;
     document.onmousemove = null;
   }
