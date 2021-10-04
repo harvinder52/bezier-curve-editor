@@ -22,8 +22,8 @@
 		spanX2.innerText = "(x2)"
 		spanX2.style.position = "absolute"
 		spanX2.style.color ="blue";
-		spanX2.style.top = "60px"
-		spanX2.style.left = "60px"
+		spanX2.style.top = "300px"
+		spanX2.style.left = "0px"
 		let spanY1= document.createElement("button")
 		spanY1.innerText = "(y1)"
 		spanY1.style.position = "absolute"
@@ -34,8 +34,17 @@
 		spanY2.innerText = "(y2)"
 		spanY2.style.position = "absolute"
 		spanY2.style.color ="purple";
-		spanY2.style.top = "120px"
-		spanY2.style.left = "120px"
+		spanY2.style.top = "0px"
+		spanY2.style.left = "300px"
+
+		let cubicSpan = document.createElement("span")
+		cubicSpan.innerText = "cubic-bezier(0.10,0.90,0.30,0.66)"
+		cubicSpan.style.position = "absolute"
+		cubicSpan.style.color ="purple";
+		cubicSpan.style.top = "-20px"
+		cubicSpan.style.left = "60px"
+		cubicSpan.style.width = "220px"
+
 		
 
 
@@ -77,7 +86,7 @@
        context.beginPath(); 
        context.moveTo(parseInt(spanX2.style.left), parseInt(spanX2.style.top));
        context.lineTo(left, top);
-       console.log(top, left)
+      
        context.strokeStyle = "green"
        context.lineWidth = 2;
    	   context.stroke();
@@ -91,16 +100,14 @@
        context.beginPath(); 
        context.moveTo(parseInt(spanY2.style.left), parseInt(spanY2.style.top));
        context.lineTo(left, top);
-       console.log(top, left)
-       context.strokeStyle = "purple"
+       
+       context.strokeStyle = "brown"
        context.lineWidth = 2;
    	   context.stroke();
    		}
        }
 
-       function cubicBezierDraw() {
-			
-       }
+       
 
       spanX1.addEventListener("onmousemove", ()=>{
        x1Line(parseInt(spanX1.style.top), parseInt(spanX1.style.left))
@@ -116,21 +123,22 @@
 
 
 		dragElement(spanX1)
-		dragElement(spanX2)
+		//dragElement(spanX2)
 		dragElement(spanY1)
-		dragElement(spanY2)
+		//dragElement(spanY2)
 
 
 
 
 
-       canvasDiv.append(canvas) 
+      canvasDiv.append(canvas) 
 
        
       canvasDiv.appendChild(spanX1)
       canvasDiv.appendChild(spanX2)
       canvasDiv.appendChild(spanY1)
       canvasDiv.appendChild(spanY2)
+      canvasDiv.appendChild(cubicSpan)
        
       
 
@@ -139,30 +147,33 @@
 
 
 
+   function cubicBezierValue(p1, p2, q1,q2){
+         
+   			cubicSpan.innerText= `cubic-bezier(${p1.toFixed(2)},${p2.toFixed(2)},${q1.toFixed(2)},${q2.toFixed(2)})`
 
-		//drags element
+   }
+	
 
 		function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   
    if (document.querySelector(".titleBar")) {
-    // if present, the header is where you move the DIV from:
+  
    (document.querySelector(".titleBar")).onmousedown = dragMouseDown;
     console.log("titlebar")
   } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
+    
     elmnt.onmousedown = dragMouseDown;
-    console.log("elmnt")
+   
   }
 
   function dragMouseDown(e) {
     e = e || window.event;
     e.preventDefault();
-    // get the mouse cursor position at startup:
+   
     pos3 = e.clientX;
     pos4 = e.clientY;
     document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
     document.onmousemove = elementDrag;
   }
 
@@ -180,16 +191,23 @@
     	 
    	} 
    	context.canvas.width=context.canvas.width;
-     x1Line(parseInt(spanX1.style.top), parseInt(spanX1.style.left))
-    y1Line(parseInt(spanY1.style.top), parseInt(spanY1.style.left))
-    cubicBezierDraw()
+    
 
-    context.lineWidth = 2;
-       context.strokeStyle = "black";
-       context.moveTo(0,300)
-       context.bezierCurveTo( parseInt(spanX1.style.left),  parseInt(spanX1.style.top), 300, 150, 300, 0);
+    context.lineWidth = 4;
+       context.strokeStyle = "violet";
+       context.moveTo( 300, 0)
+       context.bezierCurveTo( parseInt(spanY1.style.left),  parseInt(spanY1.style.top),  parseInt(spanX1.style.left), parseInt(spanX1.style.top),  0 ,  300);
        
        context.stroke();
+
+    x1Line(parseInt(spanX1.style.top), parseInt(spanX1.style.left))
+    y1Line(parseInt(spanY1.style.top), parseInt(spanY1.style.left))
+
+    //console.log(parseInt(spanY1.style.top),  parseInt(spanY1.style.left))
+
+
+    console.log( (parseInt(spanX1.style.top)/300), (300-(parseInt(spanX1.style.left)))/300,  (parseInt(spanY1.style.top)/300), (300-(parseInt(spanY1.style.left)))/300 )
+    cubicBezierValue( (parseInt(spanX1.style.top)/300), (300-(parseInt(spanX1.style.left)))/300,  (parseInt(spanY1.style.top)/300), (300-(parseInt(spanY1.style.left)))/300 )
 
     if (elmnt.offsetLeft - pos1 <=300 && elmnt.offsetLeft - pos1 >=0 ){
     	elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
