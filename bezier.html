@@ -19,19 +19,106 @@
 		buttonCube.style.left = "185px"
 		buttonCube.style.width = "50px"
 		buttonCube.style.height = "50px"
-		buttonCube.innerText = "Saurya"
-		buttonCube.style.backgroundColor = "black"
+		buttonCube.innerText = "LIFE"
+		buttonCube.style.backgroundColor = "orange"
 		buttonCube.style.transitionTimingFunction = "linear"
 		buttonCube.style.transitionDuration = "1s"
 
-		buttonCube.addEventListener("click", ()=>{
+
+		let buttonCube2 = document.createElement("button")
+		buttonCube2.id ="buttonCube2"
+		buttonCube2.style.position = "absolute"
+		buttonCube2.style.color ="white";
+		buttonCube2.style.top = "100px"
+		buttonCube2.style.left = "185px"
+		buttonCube2.style.width = "50px"
+		buttonCube2.style.height = "50px"
+		buttonCube2.innerText = "linear"
+		buttonCube2.style.backgroundColor = "teal"
+		buttonCube2.style.transitionTimingFunction = "linear"
+		buttonCube2.style.transitionDuration = "1s"
+
+		let applyButton = document.createElement("button")
+		applyButton.style.position = "absolute"
+		applyButton.style.backgroundColor ="green";
+		applyButton.style.color= "white"
+		applyButton.style.top = "350px"
+		applyButton.style.left = "700px"
+		applyButton.style.width = "50px"
+		applyButton.style.height = "50px"
+		applyButton.innerText = "Check"
+
+
+
+		
+
+			applyButton.addEventListener("click", ()=>{
+			
+			let left2 =buttonCube2.style.left	
+		   	left2 = (left2=="700px")? "185px": "700px";
+		  	buttonCube2.style.left = left2
+
+
+
 			let left =buttonCube.style.left	
-		   	left = (left=="545px")? "185px": "545px";
+		   	left = (left=="700px")? "185px": "700px";
 		  	buttonCube.style.left = left
-		  	console.log(left)
+		  	
 
 
 		})
+
+		let easeinButton = document.createElement("button")
+		easeinButton.innerText = "ease in";
+		easeinButton.style.position = "absolute"
+		easeinButton.style.color ="black";
+		easeinButton.style.top = "265px"
+		easeinButton.style.left = "185px"
+		easeinButton.style.width = "50px"
+		easeinButton.style.height = "50px"
+
+
+		easeinButton.addEventListener("click", ()=>{
+			
+			context.canvas.width=context.canvas.width;
+			spanY1.style.top  ="0px"
+			spanY1.style.left = "300px"
+			spanX1.style.top ="300px"
+			spanX1.style.left ="125px"
+			drawCubicCurve()
+			y1Line(parseInt(spanY1.style.top), parseInt(spanY1.style.left))
+			x1Line(parseInt(spanX1.style.top), parseInt(spanX1.style.left))
+			cubicBezierValue( (parseInt(spanX1.style.left)/300), (300-(parseInt(spanX1.style.top)))/300,  (parseInt(spanY1.style.left)/300), (300-(parseInt(spanY1.style.top)))/300 )
+
+			
+		});
+
+
+		let easeoutButton = document.createElement("button")
+		easeoutButton.innerText = "ease out";
+		easeoutButton.style.position = "absolute"
+		easeoutButton.style.color ="black";
+		easeoutButton.style.top = "265px"
+		easeoutButton.style.left = "700px"
+		easeoutButton.style.width = "50px"
+		easeoutButton.style.height = "50px"
+
+		easeoutButton.addEventListener("click", ()=>{
+			
+			context.canvas.width=context.canvas.width;
+			spanY1.style.top  ="0px"
+			spanY1.style.left = "175px"
+			spanX1.style.top ="300px"
+			spanX1.style.left ="0px"
+			drawCubicCurve()
+			y1Line(parseInt(spanY1.style.top), parseInt(spanY1.style.left))
+			x1Line(parseInt(spanX1.style.top), parseInt(spanX1.style.left))
+			cubicBezierValue( (parseInt(spanX1.style.left)/300), (300-(parseInt(spanX1.style.top)))/300,  (parseInt(spanY1.style.left)/300), (300-(parseInt(spanY1.style.top)))/300 )
+			
+		});
+
+
+
 
 		let canvasDiv = document.createElement("div")
 		canvasDiv.style.position = "absolute"
@@ -46,6 +133,7 @@
 		spanX1.style.color ="red";
 		spanX1.style.top = "30px"
 		spanX1.style.left = "30px"
+		spanX1.style.zIndex = "1"
 		let spanX2= document.createElement("button")
 		spanX2.innerText = "(x2)"
 		spanX2.style.position = "absolute"
@@ -58,6 +146,7 @@
 		spanY1.style.color ="green";
 		spanY1.style.top = "90px"
 		spanY1.style.left = "90px"
+		spanY1.style.zIndex = "1"
 		let spanY2= document.createElement("button")
 		spanY2.innerText = "(y2)"
 		spanY2.style.position = "absolute"
@@ -162,7 +251,7 @@
        
       
 
-		document.body.append(canvasDiv, buttonCube)
+		document.body.append(canvasDiv, buttonCube,buttonCube2, easeinButton, easeoutButton, applyButton)
 
 
 
@@ -176,6 +265,18 @@
    			console.log(buttonCube.style.transitionTimingFunction)
    			// = "cubicbezier(0,1,0,1)"
 
+   }
+
+   function drawCubicCurve(){
+   		//context.canvas.width=context.canvas.width;
+    
+
+       context.lineWidth = 4;
+       context.strokeStyle = "violet";
+       context.moveTo( 300, 0)
+       context.bezierCurveTo( parseInt(spanY1.style.left),  parseInt(spanY1.style.top),  parseInt(spanX1.style.left), parseInt(spanX1.style.top),  0 ,  300);
+       
+       context.stroke();
    }
 	
 
@@ -217,13 +318,13 @@
    	} 
    	context.canvas.width=context.canvas.width;
     
-
-    context.lineWidth = 4;
-       context.strokeStyle = "violet";
-       context.moveTo( 300, 0)
-       context.bezierCurveTo( parseInt(spanY1.style.left),  parseInt(spanY1.style.top),  parseInt(spanX1.style.left), parseInt(spanX1.style.top),  0 ,  300);
+     drawCubicCurve()
+    // context.lineWidth = 4;
+    //    context.strokeStyle = "violet";
+    //    context.moveTo( 300, 0)
+    //    context.bezierCurveTo( parseInt(spanY1.style.left),  parseInt(spanY1.style.top),  parseInt(spanX1.style.left), parseInt(spanX1.style.top),  0 ,  300);
        
-       context.stroke();
+    //    context.stroke();
 
     x1Line(parseInt(spanX1.style.top), parseInt(spanX1.style.left))
     y1Line(parseInt(spanY1.style.top), parseInt(spanY1.style.left))
@@ -232,7 +333,7 @@
 
 
     console.log( (parseInt(spanX1.style.top)/300), (300-(parseInt(spanX1.style.left)))/300,  (parseInt(spanY1.style.top)/300), (300-(parseInt(spanY1.style.left)))/300 )
-    cubicBezierValue( (parseInt(spanX1.style.left)/300), (300-(parseInt(spanX1.style.top)))/300,  (parseInt(spanY1.style.top)/300), (300-(parseInt(spanY1.style.left)))/300 )
+    cubicBezierValue( (parseInt(spanX1.style.left)/300), (300-(parseInt(spanX1.style.top)))/300,  (parseInt(spanY1.style.left)/300), (300-(parseInt(spanY1.style.top)))/300 )
 
     if (elmnt.offsetLeft - pos1 <=300 && elmnt.offsetLeft - pos1 >=0 ){
     	elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
