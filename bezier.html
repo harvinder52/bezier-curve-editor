@@ -2,9 +2,37 @@
 <html>
 <head>
 	<title>bezier </title>
+	
+
 </head>
+
+
 <body>
+   
 	<script type="text/javascript">
+
+		let buttonCube = document.createElement("button")
+		buttonCube.id ="buttonCube"
+		buttonCube.style.position = "absolute"
+		buttonCube.style.color ="white";
+		buttonCube.style.top = "55px"
+		buttonCube.style.left = "185px"
+		buttonCube.style.width = "50px"
+		buttonCube.style.height = "50px"
+		buttonCube.innerText = "Saurya"
+		buttonCube.style.backgroundColor = "black"
+		buttonCube.style.transitionTimingFunction = "linear"
+		buttonCube.style.transitionDuration = "1s"
+
+		buttonCube.addEventListener("click", ()=>{
+			let left =buttonCube.style.left	
+		   	left = (left=="545px")? "185px": "545px";
+		  	buttonCube.style.left = left
+		  	console.log(left)
+
+
+		})
+
 		let canvasDiv = document.createElement("div")
 		canvasDiv.style.position = "absolute"
 		canvasDiv.style.width = "300px"
@@ -64,15 +92,7 @@
 
 
        
-       // context.beginPath(); 
-       // context.moveTo(0, 300);
-       // let a = parseInt(spanX1.style.top)
-       // let b = parseInt(spanX1.style.left)
-       // context.lineTo(a, b)
-       // context.strokeStyle = "blue"
-       // console.log(a, b)
-       
-   	   // context.stroke();
+      
 
 
        
@@ -81,7 +101,7 @@
        function x1Line(top, left){
        	if (canvas.getContext) 
        {
-       var context = canvas.getContext('2d');
+       let context = canvas.getContext('2d');
         
        context.beginPath(); 
        context.moveTo(parseInt(spanX2.style.left), parseInt(spanX2.style.top));
@@ -95,7 +115,7 @@
        function y1Line(top, left){
        	if (canvas.getContext) 
        {
-       var context = canvas.getContext('2d');
+       let context = canvas.getContext('2d');
         
        context.beginPath(); 
        context.moveTo(parseInt(spanY2.style.left), parseInt(spanY2.style.top));
@@ -142,7 +162,7 @@
        
       
 
-		document.body.append(canvasDiv)
+		document.body.append(canvasDiv, buttonCube)
 
 
 
@@ -150,6 +170,11 @@
    function cubicBezierValue(p1, p2, q1,q2){
          
    			cubicSpan.innerText= `cubic-bezier(${p1.toFixed(2)},${p2.toFixed(2)},${q1.toFixed(2)},${q2.toFixed(2)})`
+
+   			buttonCube.style.transitionTimingFunction = `cubic-bezier(${p1.toFixed(2)},${p2.toFixed(2)},${q1.toFixed(2)},${q2.toFixed(2)})`
+
+   			console.log(buttonCube.style.transitionTimingFunction)
+   			// = "cubicbezier(0,1,0,1)"
 
    }
 	
@@ -207,7 +232,7 @@
 
 
     console.log( (parseInt(spanX1.style.top)/300), (300-(parseInt(spanX1.style.left)))/300,  (parseInt(spanY1.style.top)/300), (300-(parseInt(spanY1.style.left)))/300 )
-    cubicBezierValue( (parseInt(spanX1.style.top)/300), (300-(parseInt(spanX1.style.left)))/300,  (parseInt(spanY1.style.top)/300), (300-(parseInt(spanY1.style.left)))/300 )
+    cubicBezierValue( (parseInt(spanX1.style.left)/300), (300-(parseInt(spanX1.style.top)))/300,  (parseInt(spanY1.style.top)/300), (300-(parseInt(spanY1.style.left)))/300 )
 
     if (elmnt.offsetLeft - pos1 <=300 && elmnt.offsetLeft - pos1 >=0 ){
     	elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
