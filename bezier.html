@@ -5,29 +5,38 @@
 	
 
 </head>
+<style type="text/css">
+	#mainContainerMinima{
+		position: absolute;
+		width: 350px;
+		height: 500px;
+		background-color: gray;
+	}
 
+
+</style>
 
 <body>
-	<!-- <input type="range"></input>
-	<input type="range"></input>
-    -->
+
 	<script type="text/javascript">
+
+		
 		 let easeInSlider = document.createElement("input")
 		 easeInSlider.id = "easeInSlider"
 		 easeInSlider.type= "range"
 		 easeInSlider.min = "0"
 		 easeInSlider.max = "100"
 		 easeInSlider.value = "25"
-		 easeInSlider.setAttribute('style', 'position:absolute;top:320px; left:130px')
+		 easeInSlider.setAttribute('style', 'position:absolute;top:71%; left:42%')
 
 		 easeInSlider.oninput = function(){
-		 	spanX1.style.left = `${easeInSlider.value*3}px`
-		 		context.canvas.width=context.canvas.width;
+		 spanX1.style.left = `${easeInSlider.value*3}px`
+		 context.canvas.width=context.canvas.width;
     
-     drawCubicCurve()
+         drawCubicCurve()
 
-    x1Line(parseInt(spanX1.style.top), parseInt(spanX1.style.left))
-    y1Line(parseInt(spanY1.style.top), parseInt(spanY1.style.left))
+         x1Line(parseInt(spanX1.style.top), parseInt(spanX1.style.left))
+         y1Line(parseInt(spanY1.style.top), parseInt(spanY1.style.left))
 
 
 
@@ -40,10 +49,10 @@
 		 easeOutSlider.min = "0"
 		 easeOutSlider.max = "100"
 		 easeOutSlider.value = "25"
-		 easeOutSlider.setAttribute('style', 'position:absolute;top:320px; left:750px')
+		 easeOutSlider.setAttribute('style', 'position:absolute;top:80%; left:42%')
 
 		 easeOutSlider.oninput = function(){
-		 	spanY1.style.left = `${easeOutSlider.value*3}px`
+		 	spanY1.style.left = `${(100-easeOutSlider.value)*3}px`
 		 		context.canvas.width=context.canvas.width;
     
      drawCubicCurve()
@@ -62,7 +71,7 @@
 
 		let buttonCube = document.createElement("button")
 		buttonCube.setAttribute('style', 
-		'width:50px;background-Color:orange;height:50px;left:185px; top:55px; position:absolute; transition-Timing-Function:linear;transition-duration:1s;color:white;')
+		'width:50px;background-Color:orange;height:50px;left:185px; top:55px; position:absolute; transition-Timing-Function:linear;transition-duration:2s;color:white;')
 		buttonCube.id ="buttonCube"
 		buttonCube.innerText = "LIFE"
 		
@@ -72,50 +81,48 @@
 		buttonCube2.id ="buttonCube2"
 		buttonCube2.innerText = "linear"
 		buttonCube2.setAttribute('style', 
-		'width:50px;background-Color:teal;height:50px;left:185px; top:100px; position:absolute; transition-Timing-Function:linear;transition-duration:1s;color:white;')
+		'width:50px;background-Color:teal;height:50px;left:185px; top:100px; position:absolute; transition-Timing-Function:linear;transition-duration:2s;color:white;')
 
 
 		
 		
 
-		let applyButton = document.createElement("button")
-		applyButton.style.position = "absolute"
-		applyButton.style.backgroundColor ="green";
-		applyButton.style.color= "white"
-		applyButton.style.top = "350px"
-		applyButton.style.left = "700px"
-		applyButton.style.width = "50px"
-		applyButton.style.height = "50px"
-		applyButton.innerText = "Check"
+		let closeButton = document.createElement("button")
+		closeButton.style.position = "absolute"
+		closeButton.style.backgroundColor ="red";
+		closeButton.style.color= "white"
+		closeButton.style.top = "85%"
+		closeButton.style.left = "85%"
+		closeButton.style.width = "50px"
+		closeButton.style.height = "50px"
+		closeButton.innerText = "Close"
+
+		closeButton.addEventListener("click", ()=> {
+			document.querySelector('#mainContainerMinima').remove()
+		})
 
 
-
-		
-
-			applyButton.addEventListener("click", ()=>{
-			
-			let left2 =buttonCube2.style.left	
+		changePosition= ()=>{
+		let left2 =buttonCube2.style.left	
 		   	left2 = (left2=="700px")? "185px": "700px";
+		   	
 		  	buttonCube2.style.left = left2
-
-
-
-			let left =buttonCube.style.left	
+		  	let left =buttonCube.style.left	
 		   	left = (left=="700px")? "185px": "700px";
 		  	buttonCube.style.left = left
-		  	
+		  }
 
-
-		})
+		setInterval(changePosition, 4000);
+		
 
 		let easeinButton = document.createElement("button")
 		easeinButton.innerText = "ease in";
 		easeinButton.style.position = "absolute"
 		easeinButton.style.color ="black";
-		easeinButton.style.top = "265px"
-		easeinButton.style.left = "185px"
-		easeinButton.style.width = "50px"
-		easeinButton.style.height = "50px"
+		easeinButton.style.top = "70%"
+		easeinButton.style.left = "5%"
+		easeinButton.style.width = "100px"
+		easeinButton.style.height = "30px"
 
 
 		easeinButton.addEventListener("click", ()=>{
@@ -125,6 +132,7 @@
 			spanY1.style.left = "300px"
 			spanX1.style.top ="300px"
 			spanX1.style.left ="125px"
+			easeInSlider.value = "42"
 			drawCubicCurve()
 			y1Line(parseInt(spanY1.style.top), parseInt(spanY1.style.left))
 			x1Line(parseInt(spanX1.style.top), parseInt(spanX1.style.left))
@@ -138,10 +146,10 @@
 		easeoutButton.innerText = "ease out";
 		easeoutButton.style.position = "absolute"
 		easeoutButton.style.color ="black";
-		easeoutButton.style.top = "265px"
-		easeoutButton.style.left = "800px"
-		easeoutButton.style.width = "50px"
-		easeoutButton.style.height = "50px"
+		easeoutButton.style.top = "80%"
+		easeoutButton.style.left = "5%"
+		easeoutButton.style.width = "100px"
+		easeoutButton.style.height = "30px"
 
 		easeoutButton.addEventListener("click", ()=>{
 			
@@ -150,6 +158,7 @@
 			spanY1.style.left = "175px"
 			spanX1.style.top ="300px"
 			spanX1.style.left ="0px"
+			easeOutSlider.value ="58"
 			drawCubicCurve()
 			y1Line(parseInt(spanY1.style.top), parseInt(spanY1.style.left))
 			x1Line(parseInt(spanX1.style.top), parseInt(spanX1.style.left))
@@ -164,8 +173,9 @@
 		canvasDiv.style.position = "absolute"
 		canvasDiv.style.width = "300px"
 		canvasDiv.style.height = "300px"
-		canvasDiv.style.top = "30%"
-		canvasDiv.style.left =" 30%";
+		canvasDiv.style.top = "5%"
+		canvasDiv.style.left =" 4%";
+		canvasDiv.style.backgroundColor = "blue"
 
 		let spanX1= document.createElement("button")
 		spanX1.innerText = "(x1)"
@@ -272,10 +282,9 @@
 
 
 		dragElement(spanX1)
-		//dragElement(spanX2)
+		
 		dragElement(spanY1)
-		//dragElement(spanY2)
-
+		
 
 
 
@@ -288,14 +297,21 @@
       canvasDiv.appendChild(spanY1)
       canvasDiv.appendChild(spanY2)
       canvasDiv.appendChild(cubicSpan)
-       
-      
+     function createEditor(event){  
+     let mainContainer = document.createElement("div")
+		mainContainer.id = "mainContainerMinima"
+		mainContainer.setAttribute(`style`, 'position:absolute; ')
+		mainContainer.style.top = `${event.clientY+50}px`
+		mainContainer.style.left = `${event.clientX}px`
 
-		document.body.append(canvasDiv, buttonCube,buttonCube2, easeinButton, easeoutButton, applyButton, easeInSlider, easeOutSlider)
 
+     mainContainer.append(canvasDiv, easeinButton, easeoutButton, easeInSlider, easeOutSlider, closeButton)
+		// document.body.append(canvasDiv, buttonCube,buttonCube2, easeinButton, easeoutButton, easeInSlider, easeOutSlider)
 
+    return mainContainer
+    }
 
-
+ document.body.append(buttonCube,buttonCube2)
    function cubicBezierValue(p1, p2, q1,q2){
          
    			cubicSpan.innerText= `cubic-bezier(${p1.toFixed(2)},${p2.toFixed(2)},${q1.toFixed(2)},${q2.toFixed(2)})`
@@ -366,33 +382,31 @@
     //console.log(parseInt(spanY1.style.top),  parseInt(spanY1.style.left))
 
 
-    console.log( (parseInt(spanX1.style.top)/300), (300-(parseInt(spanX1.style.left)))/300,  (parseInt(spanY1.style.top)/300), (300-(parseInt(spanY1.style.left)))/300 )
+    // console.log( (parseInt(spanX1.style.top)/300), (300-(parseInt(spanX1.style.left)))/300,  (parseInt(spanY1.style.top)/300), (300-(parseInt(spanY1.style.left)))/300 )
     cubicBezierValue( (parseInt(spanX1.style.left)/300), (300-(parseInt(spanX1.style.top)))/300,  (parseInt(spanY1.style.left)/300), (300-(parseInt(spanY1.style.top)))/300 )
 
     if (elmnt.offsetLeft - pos1 <=300 && elmnt.offsetLeft - pos1 >=0 ){
     	elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
     }
-    // if (elmnt.offsetLeft - pos1 >300){
-    // 	elmnt.style.left = "300px"
-    // }	 
     
-    // if (elmnt.offsetLeft - pos1<0) {
-    // 	elmnt.style.left = "0px"
-    // }else{
-    // 	elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-    	
-    // }
     
   }
 
   function closeDragElement() {
-    /* stop moving when mouse button is released:*/
-
+   
     document.onmouseup = null;
     document.onmousemove = null;
   }
 }
 
+document.body.addEventListener("dblclick", ()=>{
+	if (document.querySelector("#mainContainerMinima"))
+     {
+       document.querySelector("#mainContainerMinima").remove();
+     }else{ 
+	
+	document.body.append(createEditor(event))
+  }});
 
 	</script>
 
